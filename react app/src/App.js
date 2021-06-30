@@ -24,7 +24,7 @@ function App() {
             {/* <Route path="/" exact > <Parking /> </Route> */}
             <Route path="/" exact > <MovieList /> </Route>
             <Route path="/addMovie" exact > <AddMovie /> </Route>
-            <Route path="/movieDetail" exact > <MovieDetails /> </Route>
+            <Route path="/movieDetail/:id" param={'id'}> <MovieDetails /> </Route>
             <Route component={NotFound} />
           </Switch>
         </div>

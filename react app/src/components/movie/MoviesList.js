@@ -5,7 +5,8 @@ import {useSelector, useDispatch} from 'react-redux';
 
 function MovieList() {
     const [loggedIn, setloggedIn] = useState(false)
-    const movies = useSelector(state => state);
+    const movieData = useSelector(state => state.movie.movies);
+    console.log("movies::",movieData);
   
     return (
         <div className="row" >
@@ -17,13 +18,13 @@ function MovieList() {
                     <input type="text" className="form-control" />
                 </div>
             </div>
-            {movies.map((movie) => {
-                const { name, banner, artists, genres, id } = movie;
+            {movieData&&movieData.map((movie) => {
+                const { name, bannerURL, artists, genres, id } = movie;
                 return (
                     <div className="col-md-3" key={id}>
                         <div className="card">
                             <img style={{ height: "150px" }} alt="avatar" className="card-img-top"
-                                src={banner} />
+                                src={bannerURL} />
                             <div className="card-body">
                                 <h5 className="card-title">
                                     {name}
@@ -47,8 +48,7 @@ function MovieList() {
                                 </p>
                                 <p className="card-text"></p>
                                 <Link to={{
-                                    pathname: '/movieDetail',
-                                    data: movie,
+                                    pathname: `/movieDetail/${movie.id}`,
                                 }} className="btn btn-sm btn-outline-info" >More Details</Link>
                             </div>
                             {
