@@ -23,16 +23,23 @@ const movieReducer = (state = initState, action) => {
     console.log("state:::",state);
     console.log("action:::",action);
     switch (action.type) {
-        case 'GET_MOVIE_DETAILS_BY_ID':
-            return {
-                ...state,
-                movies: action.payload
-            }
         case 'ADD_MOVIE':
             return {
                 ...state,
                 movies: [...state.movies,action.payload]
             }
+        case 'UPDATE_MOVIE':
+            return state.movies.map((item, i) => {
+                
+                
+                if(item.id == action.payload.id){
+                    console.log("state.movies[i]:::",state.movies[i]);
+                    console.log("action.payload:::",action.payload);
+                    return {...action.payload}
+                }else{
+                    return {...item}
+                }
+            })
         default:
             return state
     }

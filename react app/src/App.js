@@ -9,6 +9,7 @@ import MovieList from './components/movie/MoviesList';
 import AddMovie from './components/movie/AddMovie';
 import MovieDetails from './components/movie/MovieDetails';
 import NotFound from './components/404';
+import EditMovie from './components/movie/EditMovie';
 import {
   BrowserRouter as Router,
   Switch, Route
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" exact > <MovieList /> </Route>
             <Route path="/addMovie" exact > <AddMovie /> </Route>
             <Route path="/movieDetail/:id" param={'id'}> <MovieDetails /> </Route>
+            <Route path="/editMovie/:id" exact > <EditMovie /> </Route>
             <Route component={NotFound} />
           </Switch>
         </div>

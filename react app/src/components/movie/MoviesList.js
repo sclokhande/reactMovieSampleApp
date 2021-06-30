@@ -4,10 +4,9 @@ import {useSelector, useDispatch} from 'react-redux';
 
 
 function MovieList() {
-    const [loggedIn, setloggedIn] = useState(false)
+    const [loggedIn, setloggedIn] = useState(true)
     const movieData = useSelector(state => state.movie.movies);
     console.log("movies::",movieData);
-  
     return (
         <div className="row" >
             <div className="col-sm-12">
@@ -50,16 +49,15 @@ function MovieList() {
                                 <Link to={{
                                     pathname: `/movieDetail/${movie.id}`,
                                 }} className="btn btn-sm btn-outline-info" >More Details</Link>
-                            </div>
-                            {
-                                loggedIn && <div className="card-footer">
-                                    <div className="d-grid gap-2 d-md-block">
-                                        <button className="btn btn-primary btn-sm" type="button">Edit</button>
-                                        <button className="btn btn-danger btn-sm float-end" type="button">Delete</button>
+                                {
+                                    loggedIn &&
+                                    <div className="d-grid gap-2 d-md-block float-end">
+                                        <Link to={{
+                                            pathname: `/editMovie/${movie.id}`,
+                                        }} className="btn btn-sm btn-danger" >Edit</Link>
                                     </div>
-                                </div>
-                            }
-
+                                }
+                            </div>
                         </div>
                     </div>
                 )
