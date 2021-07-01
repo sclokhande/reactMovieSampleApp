@@ -4,15 +4,15 @@ import {useSelector, useDispatch} from 'react-redux';
 
 
 function MovieList() {
-    const [loggedIn, setloggedIn] = useState(true)
     const movieData = useSelector(state => state.movie.movies);
+    const userAuth = useSelector(state => state.movie.user);
     
     const [searchTerm,setsearchTerm] = useState('a'); 
 
     const [moviesResult,setMoviesResult] = useState([]); 
     
     useEffect(() => {
-        const results = movieData.filter((obj)=>{
+        const results = movieData&&movieData.filter((obj)=>{
             return Object.keys(obj).some((key)=>{
               return obj[`${key}`] &&
                obj[`${key}`].toString().toLowerCase() &&
@@ -32,7 +32,6 @@ function MovieList() {
                     </div>
                     <input type="text" className="form-control" onChange={(evt)=>setsearchTerm(evt.target.value)} />
                 </div>
-                <pre>{searchTerm}</pre>
             </div>
             {moviesResult&&moviesResult.map((movie) => {
                 const { name, bannerURL, artists, genres, id } = movie;
@@ -46,17 +45,17 @@ function MovieList() {
                                     {name}
                                 </h5>
                                 <p><b>Artists: </b>
-                                    {artists.map((artist) => {
+                                    {artists.map((artist,i) => {
                                         return (
-                                            <span>{artist}, </span>
+                                            <span key={i}>{artist}, </span>
                                         )
                                     }
                                     )}
                                 </p>
                                 <p><b>Genre: </b>
-                                    {genres.map((gener) => {
+                                    {genres.map((gener,i) => {
                                         return (
-                                            <span className="badge rounded-pill bg-info">{gener}</span>
+                                            <span className="badge rounded-pill bg-info" key={i}>{gener}</span>
                                         )
                                     }
                                     )}
@@ -67,7 +66,7 @@ function MovieList() {
                                     pathname: `/movieDetail/${movie.id}`,
                                 }} className="btn btn-sm btn-outline-info" >More Details</Link>
                                 {
-                                    loggedIn &&
+                                    userAuth&&userAuth.isLoggedin&&
                                     <div className="d-grid gap-2 d-md-block float-end">
                                         <Link to={{
                                             pathname: `/editMovie/${movie.id}`,

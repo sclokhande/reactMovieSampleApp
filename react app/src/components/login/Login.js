@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 
@@ -7,8 +8,9 @@ const credential  = {email:'admin@movie.com',password:"123456"};
 function Login() {
     const history = useHistory();
     const [error, setError] = useState();
+    const dispatch = useDispatch(state => state);
     const [userCredential, setUserCredential] = useState({});
-    const [localCredetial, setLocalCredetial] = useState({});
+    const userAuth = useSelector(state => state.movie.user);
 
 
     const handleCredetial = ({ target: { name, value } }) =>{
@@ -19,7 +21,9 @@ function Login() {
       e.preventDefault();
       if(credential.email== userCredential.email &&
          credential.password == userCredential.password ){
-            localStorage.setItem("userDetails",JSON.stringify({email:userCredential.email,isLoggedin:true}));
+            const userDetails = {email:userCredential.email,isLoggedin:true};
+            localStorage.setItem("userDetails",JSON.stringify(userDetails));
+            dispatch({ type: 'IS_LOGIN', payload:userDetails });
             history.push("/")
          }else{
              setError("Username and password is incorrect!!!!!");
@@ -27,10 +31,14 @@ function Login() {
     }
     
     useEffect(()=>{
-          const isLoggedin = JSON.parse(localStorage.getItem('userDetails'))
-          isLoggedin&&isLoggedin.isLoggedin !=null ?
-          history.push("/") :
-          history.push("/login")
+          const isLoggedin = userAuth&&userAuth.isLoggedin;
+          if(isLoggedin){
+          history.push("/")
+          }else{
+            localStorage.setItem("userDetails",null);
+            history.push("/login");
+          }
+        
     },[])
 
 

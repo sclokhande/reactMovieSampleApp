@@ -96,7 +96,6 @@ function AddMovie() {
 
 
                             </div>
-                            <pre>{JSON.stringify(genres)}</pre>
                             <label className="form-label">Actors <span className="text-danger">*</span></label>
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control" placeholder="Add Actors" value={actorsName && actorsName.actorsName} onChange={event => setActorsName(event.target.value)} />

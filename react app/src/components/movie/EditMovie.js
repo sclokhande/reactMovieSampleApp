@@ -27,7 +27,6 @@ function EditMovie() {
         setActorName('');
     }
    const mapGenre = (genre) => {
-       console.log("movie:::",movie);
        return genres.find((i)=> i === genre);
    }
     useEffect(()=>{
@@ -37,35 +36,26 @@ function EditMovie() {
     },[])
 
     const addGenres = (evt) => {
-        console.log(evt.target.checked)
         if (evt.target.checked) {
-            console.log(" if (evt.target.checked)::::");
             setGenres([...genres, evt.target.value]);
         } else {
-            console.log(" else (evt.target.checked)::::");
             let index = genres.findIndex((val) => val === evt.target.value);
-            console.log("asdfdsaf",index);
             if (index !== -1) {
                 genres.splice(index, 1);
             }
-            console.log("genres",genres)
             setGenres([...genres])
         }
     }
 
     const onLabelChange = ({ target: { name, value } }) => {
-        console.log("name::",name)
-        console.log("value::",value)
         setMovieObj({ ...movieObj, [name]: value });
     }
 
     const setMovieSubmit = (e) => {
         e.preventDefault();
-        console.log("actorNames:::",actorNames)
         if (e.target.name.value && genres.length !== 0 && actorNames.length !== 0) {
             const Obj  = { id:movie.id,genres: genres, artists: actorNames, ...movieObj };
             setMovieSubmitObj({ genres: genres, artists: actorNames, ...movieObj });
-            console.log("movieSubmitObj:::",Obj)
             dispatch({ type: 'UPDATE_MOVIE', payload: Obj });
             history.push("/");
             setError('');
@@ -114,7 +104,7 @@ function EditMovie() {
 
 
                             </div>
-                            <pre>{JSON.stringify(genres)}</pre>                            
+                                                     
                             <label className="form-label">Actors <span className="text-danger">*</span></label>
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control" placeholder="Add Actors" value={actorsName && actorsName.actorsName} onChange={event => setActorsName(event.target.value)} />
@@ -125,7 +115,6 @@ function EditMovie() {
                                 <button className="btn btn-outline-secondary" type="button" onClick={() => { onRemoveActor(index) }}>Remove</button>
                             </div>))
                             }
-                            <pre>{JSON.stringify(actorNames)}</pre>
                             <div className="mb-3">
                                 <label className="form-label">Description</label>
                                 <textarea className="form-control" value={movieObj.description} name="description" onChange={onLabelChange} />
