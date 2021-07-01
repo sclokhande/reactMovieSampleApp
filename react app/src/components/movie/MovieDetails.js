@@ -4,9 +4,7 @@ import {useSelector} from 'react-redux';
 
 function MovieDetails(props) {
     const params = useParams();
-    console.log("params::",params);
     const movie = useSelector(state => state.movie.movies.find(item => item.id == params.id));
-    console.log("movie:",movie);
     return (
         <div className="container">
             <div className="row">

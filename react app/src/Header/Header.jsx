@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Header = () =>{
+
+    const history = useHistory();
+
+
+    const logout = () =>{
+        localStorage.setItem("userDetails",null);
+        history.push("/login");
+    
+    }
     return (       
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
             <div className="container">
@@ -18,7 +28,7 @@ const Header = () =>{
                         <Link className="nav-link" to="/addMovie">Add Movie </Link>
                     </li>
                     <li className="nav-item active">
-                    <button type="button" className="btn btn-primary">Logout</button>
+                    <button type="button" className="btn btn-primary" onClick={logout}>Logout</button>
                     </li>                                 
                 </ul>
             </div>

@@ -54,18 +54,20 @@ function EditMovie() {
     }
 
     const onLabelChange = ({ target: { name, value } }) => {
+        console.log("name::",name)
+        console.log("value::",value)
         setMovieObj({ ...movieObj, [name]: value });
     }
 
     const setMovieSubmit = (e) => {
         e.preventDefault();
         console.log("actorNames:::",actorNames)
-        if (e.target.moviewName.value && genres.length !== 0 && actorNames.length !== 0) {
+        if (e.target.name.value && genres.length !== 0 && actorNames.length !== 0) {
             const Obj  = { id:movie.id,genres: genres, artists: actorNames, ...movieObj };
             setMovieSubmitObj({ genres: genres, artists: actorNames, ...movieObj });
             console.log("movieSubmitObj:::",Obj)
             dispatch({ type: 'UPDATE_MOVIE', payload: Obj });
-           // history.push("/");
+            history.push("/");
             setError('');
         }
         else {
@@ -89,11 +91,11 @@ function EditMovie() {
                         <form onSubmit={setMovieSubmit}>
                             <div className="mb-3">
                                 <label className="form-label">Movie Name <span className="text-danger">*</span></label>
-                                <input type="text" className="form-control" name="moviewName" value={movie.name} onChange={onLabelChange} />
+                                <input type="text" className="form-control" name="name" value={movieObj.name} onChange={onLabelChange} />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Banner URL</label>
-                                <input type="text" className="form-control" value={movie.bannerURL} name="bannerURL" onChange={onLabelChange} />
+                                <input type="text" className="form-control" value={movieObj.bannerURL} name="bannerURL" onChange={onLabelChange} />
                                 <div className="form-text">Add img URL (http://i.imgur.com/I86rTVl.jpg)</div>
                             </div>
                             <div className="mb-3">
@@ -126,7 +128,7 @@ function EditMovie() {
                             <pre>{JSON.stringify(actorNames)}</pre>
                             <div className="mb-3">
                                 <label className="form-label">Description</label>
-                                <textarea className="form-control" value={movie.description} name="description" onChange={onLabelChange} />
+                                <textarea className="form-control" value={movieObj.description} name="description" onChange={onLabelChange} />
                             </div>
 
                             <button type="submit" className="btn btn-primary">Submit</button>

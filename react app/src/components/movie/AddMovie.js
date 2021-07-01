@@ -48,8 +48,6 @@ function AddMovie() {
         if (e.target.name.value && genres.length !==0 && artists.length !== 0) {  
             const Obj  = { id:Math.random(),genres: genres, artists: artists, ...movieObj };
             setMovieSubmitObj(Obj);
-            console.log("movieSubmitObj::",movieSubmitObj);
-            console.log("movies:::",movies);
             dispatch({ type: 'ADD_MOVIE', payload:Obj });
             setError('');
             history.push("/");

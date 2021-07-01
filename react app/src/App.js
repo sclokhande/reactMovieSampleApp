@@ -8,6 +8,7 @@ import Pricing from './components/Pricing'
 import MovieList from './components/movie/MoviesList';
 import AddMovie from './components/movie/AddMovie';
 import MovieDetails from './components/movie/MovieDetails';
+import Login from './components/login/Login';
 import NotFound from './components/404';
 import EditMovie from './components/movie/EditMovie';
 import {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/addMovie" exact > <AddMovie /> </Route>
             <Route path="/movieDetail/:id" param={'id'}> <MovieDetails /> </Route>
             <Route path="/editMovie/:id" exact > <EditMovie /> </Route>
+            <Route path="/login" exact > <Login /> </Route>
             <Route component={NotFound} />
           </Switch>
         </div>

@@ -6,7 +6,23 @@ import {useSelector, useDispatch} from 'react-redux';
 function MovieList() {
     const [loggedIn, setloggedIn] = useState(true)
     const movieData = useSelector(state => state.movie.movies);
-    console.log("movies::",movieData);
+    
+    const [searchTerm,setsearchTerm] = useState('a'); 
+
+    const [moviesResult,setMoviesResult] = useState([]); 
+    
+    useEffect(() => {
+        const results = movieData.filter((obj)=>{
+            return Object.keys(obj).some((key)=>{
+              return obj[`${key}`] &&
+               obj[`${key}`].toString().toLowerCase() &&
+               obj[`${key}`].toString().toLowerCase().includes &&
+               obj[`${key}`].toString().toLowerCase().includes(searchTerm.toString().toLowerCase());
+            })
+          });
+        setMoviesResult(results);
+    },[searchTerm]);
+
     return (
         <div className="row" >
             <div className="col-sm-12">
@@ -14,10 +30,11 @@ function MovieList() {
                     <div className="input-group-prepend">
                         <span className="input-group-text" id="basic-addon1">@</span>
                     </div>
-                    <input type="text" className="form-control" />
+                    <input type="text" className="form-control" onChange={(evt)=>setsearchTerm(evt.target.value)} />
                 </div>
+                <pre>{searchTerm}</pre>
             </div>
-            {movieData&&movieData.map((movie) => {
+            {moviesResult&&moviesResult.map((movie) => {
                 const { name, bannerURL, artists, genres, id } = movie;
                 return (
                     <div className="col-md-3" key={id}>
