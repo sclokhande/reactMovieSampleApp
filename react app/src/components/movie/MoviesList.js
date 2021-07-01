@@ -36,10 +36,10 @@ function MovieList() {
             {moviesResult&&moviesResult.map((movie) => {
                 const { name, bannerURL, artists, genres, id } = movie;
                 return (
-                    <div className="col-md-3" key={id}>
-                        <div className="card">
+                    <div className="col-md-3 col-sm-6 mb-2" key={id}>
+                        <div className="card" >
                             <img style={{ height: "150px" }} alt="avatar" className="card-img-top"
-                                src={bannerURL} />
+                                src={bannerURL ? bannerURL : "http://i.imgur.com/I86rTVl.jpg"} />
                             <div className="card-body">
                                 <h5 className="card-title">
                                     {name}
